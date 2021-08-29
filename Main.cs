@@ -95,7 +95,7 @@ namespace ML_OpenVR_FSR
                 catch (Exception ex)
                 {
                     MelonDebug.Error(ex.ToString());
-                    MelonDebug.Error($"Unable to Get Export {export_name} on FSR Mod! Ignoring...");
+                    MelonDebug.Error($"Unable to Get Export {export_name} from FSR Mod! Ignoring...");
                     continue;
                 }
                 if (export_ptr_new == IntPtr.Zero)
