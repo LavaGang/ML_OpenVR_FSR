@@ -45,9 +45,8 @@ namespace ML_OpenVR_FSR
 
             MelonLogger.Msg("Searching for openvr_api.dll...");
 
-            string plugins_path = Path.Combine(
-                MelonUtils.GameDirectory,
-                $"{Process.GetCurrentProcess().ProcessName}_Data", 
+            string plugins_path = Path.Combine(Path.Combine(MelonUtils.GameDirectory,
+                $"{Process.GetCurrentProcess().ProcessName}_Data"),
                 "Plugins");
 
             string orig_openvr = null;
