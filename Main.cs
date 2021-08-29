@@ -74,10 +74,7 @@ namespace ML_OpenVR_FSR
             MelonLogger.Msg("Loading FSR Mod...");
             fsrLib = NativeLibrary.Load(fsrFilePath);
             if (fsrLib == null)
-            {
-                MelonLogger.Error("Unable to Load FSR Mod Native Library!");
                 return;
-            }
 
             MelonLogger.Msg("Attaching Exports...");
             foreach (string export_name in ExportTbl)
