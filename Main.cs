@@ -11,7 +11,7 @@ namespace ML_OpenVR_FSR
         public const string Description = "Loads the OpenVR FSR Mod at Runtime.";
         public const string Author = "Herp Derpinstine";
         public const string Company = "Lava Gang";
-        public const string Version = "1.0.1";
+        public const string Version = "1.0.2";
         public const string DownloadLink = "https://github.com/HerpDerpinstine/ML_OpenVR_FSR";
     }
 
@@ -43,7 +43,7 @@ namespace ML_OpenVR_FSR
         {
             ExtractResources();
 
-            MelonLogger.Msg("Searching for openvr_api.dll...");
+            MelonLogger.Msg("Searching for OpenVR API...");
 
             string plugins_path = Path.Combine(Path.Combine(MelonUtils.GameDirectory,
                 $"{Process.GetCurrentProcess().ProcessName}_Data"),
@@ -54,7 +54,9 @@ namespace ML_OpenVR_FSR
             {
                 if (string.IsNullOrEmpty(file_path))
                     continue;
-                if (Path.GetFileName(file_path).Equals("openvr_api.dll"))
+                string file_name = Path.GetFileNameWithoutExtension(file_path);
+                if (file_name.Equals("openvr_api")
+                    || file_name.Equals("openvr_api64"))
                 {
                     orig_openvr = file_path;
                     break;
@@ -62,7 +64,7 @@ namespace ML_OpenVR_FSR
             }
             if (orig_openvr == null)
             {
-                MelonLogger.Error("Unable to Find openvr_api.dll!");
+                MelonLogger.Error("Unable to Find OpenVR API!");
                 return;
             }
 
@@ -158,7 +160,10 @@ namespace ML_OpenVR_FSR
             }
 
             MelonLogger.Msg("Extracting FSR Mod DLL...");
-            File.WriteAllBytes(fsrFilePath, Properties.Resources.openvr_mod_dll);
+            File.WriteAllBytes(fsrFilePath,
+                //MelonUtils.IsGame32Bit()
+                //? Properties.Resources.openvr_mod_x86_dll :
+                Properties.Resources.openvr_mod_x64_dll);
         }
     }
 }
