@@ -1,8 +1,8 @@
 # ML_OpenVR_FSR
 Universal Plugin using MelonLoader  
-Loads the OpenVR FSR Mod at Runtime without needing to replace any files.
+Loads the [OpenVR FSR Mod](https://github.com/fholger/openvr_fsr) at Runtime without needing to replace any files.
 
-All OpenVR FSR Mod files get stored in the created UserData\ML_OpenVR_FSR folder at Launch.
+All [OpenVR FSR Mod](https://github.com/fholger/openvr_fsr) files get stored in the created UserData\ML_OpenVR_FSR folder at Launch.
 
 ---
 
