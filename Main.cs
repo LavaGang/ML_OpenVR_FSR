@@ -11,7 +11,7 @@ namespace ML_OpenVR_FSR
         public const string Description = "Loads the OpenVR FSR Mod at Runtime.";
         public const string Author = "Herp Derpinstine";
         public const string Company = "Lava Gang";
-        public const string Version = "1.0.0";
+        public const string Version = "1.0.1";
         public const string DownloadLink = "https://github.com/HerpDerpinstine/ML_OpenVR_FSR";
     }
 
@@ -94,7 +94,7 @@ namespace ML_OpenVR_FSR
                 }
                 catch
                 {
-                    MelonDebug.Error($"Unable to Get Export {export_name} on OpenVR API!");
+                    MelonDebug.Error($"Unable to Get Export {export_name} on OpenVR API! Ignoring..");
                     continue;
                 }
 
@@ -107,7 +107,7 @@ namespace ML_OpenVR_FSR
                 }
                 catch
                 {
-                    MelonDebug.Error($"Unable to Get Export {export_name} on FSR Mod!");
+                    MelonDebug.Error($"Unable to Get Export {export_name} on FSR Mod! Ignoring...");
                     continue;
                 }
 
@@ -130,11 +130,19 @@ namespace ML_OpenVR_FSR
 
             string fsr_name = "openvr_mod";
 
-            string fsr_log = Path.Combine(fsr_folder, $"{fsr_name}.log");
-            if (File.Exists(fsr_log))
+            try
             {
-                MelonLogger.Msg("Removing Existing Log File...");
-                File.Delete(fsr_log);
+                string fsr_log = Path.Combine(fsr_folder, $"{fsr_name}.log");
+                if (File.Exists(fsr_log))
+                {
+                    MelonLogger.Msg("Removing Existing Log File...");
+                    File.Delete(fsr_log);
+                }
+            }
+            catch (Exception ex)
+            {
+                MelonDebug.Error(ex.ToString());
+                MelonDebug.Error($"Failed to Remove Existing Log File! Ignoring...");
             }
 
             string fsr_cfg = Path.Combine(fsr_folder, $"{fsr_name}.cfg");
@@ -145,14 +153,22 @@ namespace ML_OpenVR_FSR
             }
 
             fsrFilePath = Path.Combine(fsr_folder, $"{fsr_name}.dll");
-            if (File.Exists(fsrFilePath))
+            try
             {
-                MelonLogger.Msg("Removing Existing FSR Mod DLL...");
-                File.Delete(fsrFilePath);
-            }
+                if (File.Exists(fsrFilePath))
+                {
+                    MelonLogger.Msg("Removing Existing FSR Mod DLL...");
+                    File.Delete(fsrFilePath);
+                }
 
-            MelonLogger.Msg("Extracting FSR Mod DLL...");
-            File.WriteAllBytes(fsrFilePath, Properties.Resources.openvr_mod_dll);
+                MelonLogger.Msg("Extracting FSR Mod DLL...");
+                File.WriteAllBytes(fsrFilePath, Properties.Resources.openvr_mod_dll);
+            }
+            catch (Exception ex)
+            {
+                MelonDebug.Error(ex.ToString());
+                MelonDebug.Error($"Failed to Extract FSR Mod DLL! Ignoring...");
+            }
         }
     }
 }
