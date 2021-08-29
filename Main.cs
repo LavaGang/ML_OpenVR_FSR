@@ -69,10 +69,7 @@ namespace ML_OpenVR_FSR
             MelonLogger.Msg("Loading OpenVR API...");
             openVRLib = NativeLibrary.Load(orig_openvr);
             if (openVRLib == null)
-            {
-                MelonLogger.Error("Unable to Load OpenVR API Native Library!");
                 return;
-            }
 
             MelonLogger.Msg("Loading FSR Mod...");
             fsrLib = NativeLibrary.Load(fsrFilePath);
@@ -85,35 +82,30 @@ namespace ML_OpenVR_FSR
             MelonLogger.Msg("Attaching Exports...");
             foreach (string export_name in ExportTbl)
             {
-                IntPtr export_ptr_orig = IntPtr.Zero;
-                try
+                IntPtr export_ptr_orig;
+                try { export_ptr_orig = openVRLib.GetExport(export_name); }
+                catch (Exception ex)
                 {
-                    export_ptr_orig = openVRLib.GetExport(export_name);
-                    if (export_ptr_orig == IntPtr.Zero)
-                        throw new NullReferenceException();
-                }
-                catch
-                {
-                    MelonDebug.Error($"Unable to Get Export {export_name} on OpenVR API! Ignoring..");
+                    MelonDebug.Error(ex.ToString());
+                    MelonDebug.Error($"Unable to Get Export {export_name} from OpenVR API! Ignoring...");
                     continue;
                 }
+                if (export_ptr_orig == IntPtr.Zero)
+                    continue;
 
-                IntPtr export_ptr_new = IntPtr.Zero;
-                try
+                IntPtr export_ptr_new;
+                try { export_ptr_new = fsrLib.GetExport(export_name); }
+                catch (Exception ex)
                 {
-                    export_ptr_new = fsrLib.GetExport(export_name);
-                    if (export_ptr_new == IntPtr.Zero)
-                        throw new NullReferenceException();
-                }
-                catch
-                {
+                    MelonDebug.Error(ex.ToString());
                     MelonDebug.Error($"Unable to Get Export {export_name} on FSR Mod! Ignoring...");
                     continue;
                 }
+                if (export_ptr_new == IntPtr.Zero)
+                    continue;
 
-
-                IntPtr* targetVarPointer = &export_ptr_orig;
-                MelonUtils.NativeHookAttach((IntPtr)targetVarPointer, export_ptr_new);
+                IntPtr* export_ptr_orig_ptr = &export_ptr_orig;
+                MelonUtils.NativeHookAttach((IntPtr)export_ptr_orig_ptr, export_ptr_new);
             }
 
             MelonLogger.Msg("Initialized!");
