@@ -160,15 +160,16 @@ namespace ML_OpenVR_FSR
                     MelonLogger.Msg("Removing Existing FSR Mod DLL...");
                     File.Delete(fsrFilePath);
                 }
-
-                MelonLogger.Msg("Extracting FSR Mod DLL...");
-                File.WriteAllBytes(fsrFilePath, Properties.Resources.openvr_mod_dll);
             }
             catch (Exception ex)
             {
                 MelonDebug.Error(ex.ToString());
                 MelonDebug.Error($"Failed to Extract FSR Mod DLL! Ignoring...");
+                return;
             }
+
+            MelonLogger.Msg("Extracting FSR Mod DLL...");
+            File.WriteAllBytes(fsrFilePath, Properties.Resources.openvr_mod_dll);
         }
     }
 }
