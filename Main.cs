@@ -11,7 +11,7 @@ namespace ML_OpenVR_FSR
         public const string Description = "Loads the OpenVR FSR Mod at Runtime.";
         public const string Author = "Herp Derpinstine";
         public const string Company = "Lava Gang";
-        public const string Version = "1.0.2";
+        public const string Version = "1.0.3";
         public const string DownloadLink = "https://github.com/HerpDerpinstine/ML_OpenVR_FSR";
     }
 
