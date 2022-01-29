@@ -73,9 +73,9 @@ namespace ML_OpenVR_FSR.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] openvr_mod_x64_dll {
+        internal static byte[] openvr_mod_dll {
             get {
-                object obj = ResourceManager.GetObject("openvr_mod_x64_dll", resourceCulture);
+                object obj = ResourceManager.GetObject("openvr_mod_dll", resourceCulture);
                 return ((byte[])(obj));
             }
         }

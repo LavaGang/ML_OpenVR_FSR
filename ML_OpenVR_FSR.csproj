@@ -53,7 +53,7 @@
     <None Include="Resources\openvr_mod.cfg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\openvr_mod_x64.dll" />
+    <Content Include="Resources\openvr_mod.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

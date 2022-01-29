@@ -11,7 +11,7 @@ namespace ML_OpenVR_FSR
         public const string Description = "Loads the OpenVR FSR Mod at Runtime.";
         public const string Author = "Herp Derpinstine";
         public const string Company = "Lava Gang";
-        public const string Version = "1.0.3";
+        public const string Version = "1.0.4";
         public const string DownloadLink = "https://github.com/HerpDerpinstine/ML_OpenVR_FSR";
     }
 
@@ -83,23 +83,13 @@ namespace ML_OpenVR_FSR
             {
                 IntPtr export_ptr_orig;
                 try { export_ptr_orig = openVRLib.GetExport(export_name); }
-                catch (Exception ex)
-                {
-                    MelonDebug.Error(ex.ToString());
-                    MelonDebug.Error($"Unable to Get Export {export_name} from OpenVR API! Ignoring...");
-                    continue;
-                }
+                catch { continue; }
                 if (export_ptr_orig == IntPtr.Zero)
                     continue;
 
                 IntPtr export_ptr_new;
                 try { export_ptr_new = fsrLib.GetExport(export_name); }
-                catch (Exception ex)
-                {
-                    MelonDebug.Error(ex.ToString());
-                    MelonDebug.Error($"Unable to Get Export {export_name} from FSR Mod! Ignoring...");
-                    continue;
-                }
+                catch { continue; }
                 if (export_ptr_new == IntPtr.Zero)
                     continue;
 
@@ -163,7 +153,7 @@ namespace ML_OpenVR_FSR
             File.WriteAllBytes(fsrFilePath,
                 //MelonUtils.IsGame32Bit()
                 //? Properties.Resources.openvr_mod_x86_dll :
-                Properties.Resources.openvr_mod_x64_dll);
+                Properties.Resources.openvr_mod_dll);
         }
     }
 }

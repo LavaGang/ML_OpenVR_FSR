@@ -121,7 +121,7 @@
   <data name="openvr_mod_cfg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\openvr_mod.cfg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="openvr_mod_x64_dll" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\openvr_mod_x64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="openvr_mod_dll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\openvr_mod.dll;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
