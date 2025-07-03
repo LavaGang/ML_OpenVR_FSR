@@ -13,7 +13,7 @@ namespace ML_OpenVR_FSR
         public const string Author = "Herp Derpinstine";
         public const string Company = "Lava Gang";
         public const string Version = "1.1.0";
-        public const string DownloadLink = "https://github.com/HerpDerpinstine/ML_OpenVR_FSR";
+        public const string DownloadLink = "https://github.com/LavaGang/ML_OpenVR_FSR";
     }
 
     public class ML_OpenVR_FSR : MelonPlugin
