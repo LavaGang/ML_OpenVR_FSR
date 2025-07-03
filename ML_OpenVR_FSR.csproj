@@ -5,7 +5,7 @@
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<OutputPath>$(SolutionDir)Output\</OutputPath>
+		<OutputPath>$(SolutionDir)Output\$(Configuration)</OutputPath>
 		<OutputType>Library</OutputType>
 		<RootNamespace>ML_OpenVR_FSR</RootNamespace>
         <Platforms>AnyCPU</Platforms>
@@ -29,7 +29,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="LavaGang.MelonLoader" Version="0.7.1" />
+    <PackageReference Include="LavaGang.MelonLoader" Version="0.7.1">
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
