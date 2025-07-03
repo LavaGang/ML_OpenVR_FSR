@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using MelonLoader;
+using MelonLoader.NativeUtils;
+using MelonLoader.Utils;
+
 
 namespace ML_OpenVR_FSR
 {
@@ -11,7 +15,7 @@ namespace ML_OpenVR_FSR
         public const string Description = "Loads the OpenVR FSR Mod at Runtime.";
         public const string Author = "Herp Derpinstine";
         public const string Company = "Lava Gang";
-        public const string Version = "1.0.4";
+        public const string Version = "1.1.0";
         public const string DownloadLink = "https://github.com/HerpDerpinstine/ML_OpenVR_FSR";
     }
 
@@ -20,6 +24,7 @@ namespace ML_OpenVR_FSR
         private static string fsrFilePath = null;
         private static NativeLibrary openVRLib = null;
         private static NativeLibrary fsrLib = null;
+        private static List<NativeHook<Delegate>> allHooks = new();
 
         private static string[] ExportTbl =
         {
@@ -45,7 +50,7 @@ namespace ML_OpenVR_FSR
 
             MelonLogger.Msg("Searching for OpenVR API...");
 
-            string plugins_path = Path.Combine(Path.Combine(MelonUtils.GameDirectory,
+            string plugins_path = Path.Combine(Path.Combine(MelonEnvironment.GameRootDirectory,
                 $"{Process.GetCurrentProcess().ProcessName}_Data"),
                 "Plugins");
 
@@ -93,16 +98,27 @@ namespace ML_OpenVR_FSR
                 if (export_ptr_new == IntPtr.Zero)
                     continue;
 
-                IntPtr* export_ptr_orig_ptr = &export_ptr_orig;
-                MelonUtils.NativeHookAttach((IntPtr)export_ptr_orig_ptr, export_ptr_new);
+                var hook = new NativeHook<Delegate>(export_ptr_orig, export_ptr_new);
+                hook.Attach();
+                allHooks.Add(hook);
             }
 
             MelonLogger.Msg("Initialized!");
         }
 
+        public override unsafe void OnApplicationQuit()
+        {
+            if (allHooks.Count > 0)
+            {
+                foreach (var hook in allHooks)
+                    hook.Detach();
+                allHooks.Clear();
+            }
+        }
+
         private static void ExtractResources()
         {
-            string fsr_folder = Path.Combine(MelonUtils.UserDataDirectory, BuildInfo.Name);
+            string fsr_folder = Path.Combine(MelonEnvironment.UserDataDirectory, BuildInfo.Name);
             if (!Directory.Exists(fsr_folder))
             {
                 Directory.CreateDirectory(fsr_folder);
