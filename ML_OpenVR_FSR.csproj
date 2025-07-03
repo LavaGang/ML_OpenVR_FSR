@@ -22,6 +22,7 @@
     <None Remove="exports.txt" />
     <None Remove="LICENSE.md" />
     <None Remove="LICENSE_OPENVR_FSR.md" />
+    <None Remove="ML_OpenVR_FSR.json" />
     <None Remove="NOTICE.txt" />
     <None Remove="README.md" />
   </ItemGroup>
