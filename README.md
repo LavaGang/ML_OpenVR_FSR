@@ -8,9 +8,9 @@ All [OpenVR FSR Mod](https://github.com/fholger/openvr_fsr) files get stored in 
 
 ### HOW TO INSTALL
 
-1) Place ML_OpenVR_FSR.dll in your Plugins folder.
+1) Place [ML_OpenVR_FSR.dll](https://github.com/LavaGang/ML_OpenVR_FSR/releases/latest) in your Plugins folder.
 2) Run the Game once so that it can go through the initial extraction and setup process.
-3) Close the Game and edit your OpenVR FSR settings in UserData\ML_OpenVR_FSR\openvr_mod.cfg
+3) Close the Game and edit your OpenVR FSR settings in ``UserData\ML_OpenVR_FSR\openvr_mod.cfg``
 4) Enjoy!
 
 ---
